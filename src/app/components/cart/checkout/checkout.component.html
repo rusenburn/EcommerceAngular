@@ -1,0 +1,279 @@
+<div class="page-checkout">
+  <div class="columns is-multiline">
+    <div class="column is-12">
+      <h1 class="title">Checkout</h1>
+    </div>
+
+    <div class="column is-12 box">
+      <table class="table is-fullwidth">
+        <thead>
+          <tr>
+            <td>Product</td>
+            <td>Price</td>
+            <td>Quantity</td>
+            <td>Total</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of cart.items">
+            <td>{{ item.product.name }}</td>
+            <td>${{ item.product.price }}</td>
+            <td>{{ item.quantity }}</td>
+            <td>${{ getItemTotal(item).toFixed(2) }}</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="2">Total</td>
+            <td>{{ cartTotalLength }}</td>
+            <td>{{ cartTotalPrice.toFixed(2) }}</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+    <div class="column is-12 box">
+      <h2 class="subtitle">Shipping details</h2>
+      <p class="has-text-grey mb-4">*All fields are required</p>
+      <form
+        [formGroup]="checkoutForm"
+        *ngIf="step === 1"
+        class="column is-12 columns is-multiline"
+        (ngSubmit)="onInformationFormSubmit()"
+      >
+        <div class="column is-6">
+          <div class="field">
+            <label for="firstName">First Name*</label>
+            <div class="control">
+              <input
+                type="text"
+                class="input"
+                name="firstName"
+                id="firstName"
+                formControlName="firstName"
+                [class.is-danger]="
+                  checkoutForm.controls.firstName.errors &&
+                  checkoutForm.controls.firstName.touched
+                "
+                [class.is-success]="checkoutForm.controls.firstName.valid"
+              />
+            </div>
+            <p
+              *ngIf="
+                checkoutForm.controls.firstName.errors &&
+                checkoutForm.controls.firstName.touched
+              "
+              class="help is-danger"
+            >
+              Invalid field.
+            </p>
+          </div>
+
+          <div class="field">
+            <label for="lastName">Last Name*</label>
+            <div class="control">
+              <input
+                type="text"
+                class="input"
+                name="lastName"
+                id="lastName"
+                formControlName="lastName"
+                [class.is-danger]="
+                  checkoutForm.controls.lastName.errors &&
+                  checkoutForm.controls.lastName.touched
+                "
+                [class.is-success]="checkoutForm.controls.lastName.valid"
+              />
+            </div>
+            <p
+              *ngIf="
+                checkoutForm.controls.lastName.errors &&
+                checkoutForm.controls.lastName.touched
+              "
+              class="help is-danger"
+            >
+              Invalid field.
+            </p>
+          </div>
+
+          <div class="field">
+            <label for="email">Email*</label>
+            <div class="control">
+              <input
+                type="email"
+                class="input"
+                name="email"
+                id="email"
+                formControlName="email"
+                [class.is-danger]="
+                  checkoutForm.controls.email.errors &&
+                  checkoutForm.controls.email.touched
+                "
+                [class.is-success]="checkoutForm.controls.email.valid"
+              />
+            </div>
+            <p
+              *ngIf="
+                checkoutForm.controls.email.errors &&
+                checkoutForm.controls.email.touched
+              "
+              class="help is-danger"
+            >
+              Invalid field.
+            </p>
+          </div>
+
+          <div class="field">
+            <label for="phone">Phone*</label>
+            <div class="control">
+              <input
+                type="text"
+                class="input"
+                name="phone"
+                id="phone"
+                formControlName="phone"
+                [class.is-danger]="
+                  checkoutForm.controls.phone.errors &&
+                  checkoutForm.controls.phone.touched
+                "
+                [class.is-success]="checkoutForm.controls.phone.valid"
+              />
+            </div>
+            <p
+              *ngIf="
+                checkoutForm.controls.phone.errors &&
+                checkoutForm.controls.phone.touched
+              "
+              class="help is-danger"
+            >
+              Invalid field.
+            </p>
+          </div>
+        </div>
+        <div class="column is-6">
+          <div class="field">
+            <label for="address">Address*</label>
+            <div class="control">
+              <input
+                type="text"
+                class="input"
+                name="address"
+                id="address"
+                formControlName="address"
+                [class.is-danger]="
+                  checkoutForm.controls.address.errors &&
+                  checkoutForm.controls.address.touched
+                "
+                [class.is-success]="checkoutForm.controls.address.valid"
+              />
+            </div>
+            <p
+              *ngIf="
+                checkoutForm.controls.address.errors &&
+                checkoutForm.controls.address.touched
+              "
+              class="help is-danger"
+            >
+              Invalid field.
+            </p>
+          </div>
+
+          <div class="field">
+            <label for="zipcode">Zip Code*</label>
+            <div class="control">
+              <input
+                type="text"
+                class="input"
+                name="zipcode"
+                id="zipcode"
+                formControlName="zipcode"
+                [class.is-danger]="
+                  checkoutForm.controls.zipcode.errors &&
+                  checkoutForm.controls.zipcode.touched
+                "
+                [class.is-success]="checkoutForm.controls.zipcode.valid"
+              />
+            </div>
+            <p
+              *ngIf="
+                checkoutForm.controls.zipcode.errors &&
+                checkoutForm.controls.zipcode.touched
+              "
+              class="help is-danger"
+            >
+              Invalid field.
+            </p>
+          </div>
+
+          <div class="field">
+            <label for="place">Place*</label>
+            <div class="control">
+              <input
+                type="text"
+                class="input"
+                name="place"
+                id="place"
+                formControlName="place"
+                [class.is-danger]="
+                  checkoutForm.controls.place.errors &&
+                  checkoutForm.controls.place.touched
+                "
+                [class.is-success]="checkoutForm.controls.place.valid"
+              />
+            </div>
+            <p
+              *ngIf="
+                checkoutForm.controls.place.errors &&
+                checkoutForm.controls.place.touched
+              "
+              class="help is-danger"
+            >
+              Invalid field.
+            </p>
+          </div>
+        </div>
+        <div class="column is-3">
+          <div class="field">
+            <div class="control">
+              <button
+                class="button is-dark mt-4"
+                [disabled]="checkoutForm.invalid"
+              >
+                Proceed
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+      <div class="notification is-danger mt-4" *ngIf="errors?.length">
+        <p *ngFor="let error of errors">
+          {{ error }}
+        </p>
+      </div>
+
+      <form [hidden]="step !== 2" id="payment-form">
+        <div id="card-element">
+          <!--Stripe.js injects the Card Element-->
+        </div>
+        <button (click)="submitForm()" id="submit">
+          <div [class.hidden]="!isLoading" class="spinner" id="spinner"></div>
+          <span id="button-text">Pay now</span>
+        </button>
+        <p id="card-error" role="alert"></p>
+        <p class="result-message hidden">
+          Payment succeeded, see the result in your
+          <a href="" target="_blank">Stripe dashboard.</a> Refresh the page to
+          pay again.
+        </p>
+      </form>
+
+      <!-- <div id="card-element" class="mb-5"></div>
+
+      <div *ngIf="cartTotalLength">
+        <hr />
+        <button class="button is-dark" (click)="submitForm()">
+          Pay With Stripe
+        </button>
+      </div>  -->
+    </div>
+  </div>
+</div>

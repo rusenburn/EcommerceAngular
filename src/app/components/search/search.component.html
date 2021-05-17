@@ -1,0 +1,16 @@
+<div class="page-search">
+    <div class="columns is-multiline">
+        <div class="column is-12">
+            <h1 class="title">Search</h1>
+            <h2 class="is-size-5 has-text-gray">
+                Search Term:"{{query}}"
+            </h2>
+        </div>
+        <app-product-box
+            *ngFor="let product of products;index as i;"
+            [product]="product"
+            class="column is-3"
+            >
+            </app-product-box>
+    </div>
+</div>

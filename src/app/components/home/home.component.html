@@ -1,0 +1,21 @@
+<div class="home">
+  <section class="hero is-medium is-dark mb-6">
+    <div class="hero-body has-test-centered">
+      <div class="title mb-6">Welcome To Ecommerce</div>
+      <div class="subtitle">My First Ecommerce store</div>
+    </div>
+  </section>
+
+  <div class="columns is-multiline">
+    <div class="column is-12">
+      <h2 class="is-size-2 has text centered">Latest products</h2>
+    </div>
+
+    <app-product-box
+      *ngFor="let product of latestProducts"
+      [product]="product"
+      class="column is-3"
+    ></app-product-box>
+
+  </div>
+</div>

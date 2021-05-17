@@ -1,0 +1,34 @@
+<div class="page-cart-detail">
+  <div class="columns is-multiline">
+    <div class="column is-12">
+      <h1 class="title">Cart</h1>
+    </div>
+
+    <div class="column is-12-box">
+      <table class="table is-fullwidth" *ngIf="cartTotalLength">
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Total</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr app-cart-item-row [item]="item" *ngFor="let item of cart.items">
+          </tr>
+        </tbody>
+      </table>
+      <p *ngIf="!cartTotalLength">
+        You don't have any products in your cart...
+      </p>
+    </div>
+    <div class="column is-12">
+        <h2 class="subtitle">Summary</h2>
+        <p><strong>${{cartTotalPrice.toFixed(2)}}</strong>, {{cartTotalLength}} items</p>
+        <hr />
+        <a routerLink="/cart/checkout" class="button is-dark" [attr.disabled]="cartTotalLength? null:true">Proceed to checkout</a>
+    </div>
+  </div>
+</div>

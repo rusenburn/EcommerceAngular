@@ -1,0 +1,22 @@
+<div class="page-my-account">
+  <div class="columns is-multiline">
+    <div class="column is-12">
+      <h1 class="title has-text-centered">My Account</h1>
+    </div>
+    <div class="column is-12">
+      <button (click)="logout()" class="button is-danger">Log out</button>
+    </div>
+
+    <hr />
+
+    <div class="column is-12">
+      <h2 class="subtitle has-text-centered">My orders</h2>
+
+      <app-order-summary *ngFor="let order of orders" [order]="order">
+      </app-order-summary>
+      <div class="mt-4">
+        <small>* Items total price may not have he same value as the sum of products because products price change overtime</small>
+      </div>
+    </div>
+  </div>
+</div>

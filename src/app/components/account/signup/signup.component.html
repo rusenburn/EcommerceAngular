@@ -1,0 +1,132 @@
+<div class="page-signup">
+  <div class="columns">
+    <div class="column is-4 is-offset-4">
+      <h1 class="title">Sign up</h1>
+      <form [formGroup]="signupForm" (ngSubmit)="submitForm()">
+        <div class="field">
+          <label for="email">Email</label>
+          <div class="control has-icons-left has-icons-right">
+            <input
+              type="email"
+              class="input"
+              name="email"
+              id="email"
+              autofocus
+              formControlName="email"
+              [class.is-danger]="
+                signupForm.controls.email.invalid &&
+                signupForm.controls.email.touched
+              "
+              [class.is-success]="signupForm.controls.email.valid"
+            />
+            <span class="icon is-small is-left">
+              <i class="fas fa-envelope"></i>
+            </span>
+            <span
+              *ngIf="
+                signupForm.controls.email.invalid &&
+                signupForm.controls.email.touched
+              "
+              class="icon is-small is-right"
+            >
+              <i class="fas fa-exclamation-triangle"></i>
+            </span>
+          </div>
+          <p
+            class="help is-danger"
+            class="has-text-danger content is-small"
+            *ngIf="
+              signupForm.controls.email?.errors?.required &&
+              signupForm.controls.email?.touched
+            "
+          >
+            Email is required.
+          </p>
+          <p
+            class="help is-danger"
+            *ngIf="
+              signupForm.controls.email?.errors?.email &&
+              signupForm.controls.email?.touched
+            "
+          >
+            Not a valid email.
+          </p>
+        </div>
+
+        <div formGroupName="passwordGroup">
+          <div class="field">
+            <label for="password">Password</label>
+            <div class="control">
+              <input
+                type="password"
+                class="input"
+                formControlName="password"
+                id="password"
+                name="password"
+                [class.is-danger]="
+                  signupForm.controls.passwordGroup.get('password')?.invalid &&
+                  signupForm.controls.passwordGroup.get('password')?.touched
+                "
+                [class.is-success]="
+                  signupForm.controls.passwordGroup.get('password')?.valid
+                "
+              />
+            </div>
+            <p
+              class="help is-danger"
+              *ngIf="
+                signupForm.controls.passwordGroup.get('password')?.errors &&
+                signupForm.controls.passwordGroup.get('password')?.touched
+              "
+              class="has-text-danger content is-small"
+            >
+              {{getPasswordError}}
+            </p>
+          </div>
+
+          <div class="field">
+            <label for="password2">Repeat Password</label>
+            <div class="control">
+              <input
+                type="password"
+                class="input"
+                formControlName="password2"
+                id="password2"
+                name="password2"
+                [class.is-danger]="
+                  signupForm.controls.passwordGroup?.invalid &&
+                  signupForm.controls.passwordGroup?.get('password2').touched
+                "
+                [class.is-success]="signupForm.controls.passwordGroup?.valid"
+              />
+            </div>
+            <p
+              class="help is-danger"
+              *ngIf="
+                signupForm.controls.passwordGroup?.invalid &&
+                signupForm.controls.passwordGroup?.get('password2').touched
+              "
+            >
+              Passwords do not match.
+            </p>
+          </div>
+        </div>
+        <div
+          class="has-text-danger"
+          *ngIf="errors.length || signupForm.errors"
+        >
+          <p *ngFor="let err of errors">{{ err.description }}</p>
+        </div>
+        <div class="field">
+          <div class="control">
+            <button class="button is-dark mt-4" [disabled]="signupForm.invalid">
+              Sign Up
+            </button>
+          </div>
+        </div>
+        <hr />
+        Or <a routerLink="/account/login">click here</a> to log in!
+      </form>
+    </div>
+  </div>
+</div>

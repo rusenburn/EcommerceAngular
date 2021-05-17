@@ -1,0 +1,77 @@
+<div class="page-login">
+  <div class="columns">
+    <div class="column is-4 is-offset-4">
+      <h1 class="title">Log in</h1>
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div class="field">
+          <label>Email</label>
+          <div class="control has-icons-left has-icons-right">
+            <input
+              type="email"
+              class="input"
+              name="email"
+              formControlName="email"
+              [class.is-danger]="
+                loginForm.controls.email.invalid &&
+                loginForm.controls.email.touched
+              "
+              [class.is-success]="loginForm.controls.email.valid"
+            />
+            <span class="icon is-small is-left">
+              <i class="fas fa-envelope"></i>
+            </span>
+          </div>
+          <p
+            class="help is-danger"
+            *ngIf="
+              loginForm.controls.email.invalid &&
+              loginForm.controls.email.touched
+            "
+          >
+            Invalid input
+          </p>
+        </div>
+
+        <div class="field">
+          <label>Password</label>
+          <div class="control">
+            <input
+              type="password"
+              class="input"
+              name="password"
+              formControlName="password"
+              [class.is-danger]="
+                loginForm.controls.password.invalid &&
+                loginForm.controls.password.touched
+              "
+              [class.is-success]="loginForm.controls.password.valid"
+            />
+          </div>
+          <p
+            class="help is-danger"
+            *ngIf="
+              loginForm.controls.password.invalid &&
+              loginForm.controls.password.touched
+            "
+          >
+            Invalid input
+          </p>
+        </div>
+
+        <div *ngIf="errors.length" class="mb-2">
+          <p *ngFor="let error of errors" class="help is-danger">{{ error }}</p>
+        </div>
+
+        <div class="field">
+          <div class="control">
+            <button [disabled]="loginForm.invalid" class="button is-dark">
+              Log In
+            </button>
+          </div>
+          <hr />
+          <p>Or <a routerLink="/account/signup">click here</a> to sign up!</p>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

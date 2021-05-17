@@ -1,0 +1,14 @@
+<div class="category-detail">
+  <div class="columns is-multiline">
+    <div class="column is-12">
+      <h1 class="is-size-2 has-text-centered">
+        {{ category?.name }}
+      </h1>
+    </div>
+    <app-product-box
+      *ngFor="let product of category.products"
+      [product]="product"
+      class="column is-3"
+    ></app-product-box>
+  </div>
+</div>
