@@ -1,12 +1,12 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { toast } from 'bulma-toast';
-import { observable, Observable, Observer } from 'rxjs';
+import { Observable } from 'rxjs';
 import { AppConfig } from 'src/app/app.config';
 import { OrderItem } from 'src/app/models/orderItem.model';
 import { Product } from 'src/app/models/product.model';
 import { MiniStoreService } from 'src/app/services/mini-store.service';
+import { ProductsService } from 'src/app/services/products.service';
 
 @Component({
   selector: 'app-product-detail',
@@ -16,17 +16,15 @@ import { MiniStoreService } from 'src/app/services/mini-store.service';
 export class ProductDetailComponent implements OnInit {
   public quantity = 1;
   public product = new Product();
-  public productsEndPoint: string;
   public imagesEndPoint: string = '';
 
   constructor(
-    private _client: HttpClient,
+    private _products: ProductsService,
     appConfig: AppConfig,
     private _route: ActivatedRoute,
     private _mini: MiniStoreService
   ) {
     this.imagesEndPoint = appConfig.imagesEndpoint;
-    this.productsEndPoint = appConfig.productsEndpoint;
   }
 
   ngOnInit(): void {
@@ -36,12 +34,12 @@ export class ProductDetailComponent implements OnInit {
         this._mini.setIsLoading(true);
         const categorySlug = params.get('category_slug');
         const productSlug = params.get('product_slug');
-        const productId = params.get('id');
+        const productId = +params.get('id');
         let obs: Observable<Product>;
         if (productId) {
-          obs = this._client.get<Product>(`${this.productsEndPoint}${productId}`);
+          obs = this._products.getProductById(productId);
         } else {
-          obs = this._client.get<Product>(`${this.productsEndPoint}${categorySlug}/${productSlug}`);
+          obs = this._products.getProductbySlugs(categorySlug, productSlug);
         }
 
         obs.subscribe(
@@ -60,9 +58,7 @@ export class ProductDetailComponent implements OnInit {
       }
     );
   }
-  /**
-   * setLoading
-   */
+
   public setLoading(state: boolean): void {
     this._mini.setIsLoading(state);
   }

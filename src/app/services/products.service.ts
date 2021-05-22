@@ -20,12 +20,16 @@ export class ProductsService {
     return this.client.get<Product[]>(`${this.baseUrl}latest-products/`);
   }
 
+  public getProductById(id: number): Observable<Product> {
+    return this.client.get<Product>(`${this.baseUrl}${id}`);
+  }
+
   public getProductbySlugs(categorySlug: string, productSlug: string): Observable<Product> {
     return this.client.get<Product>(`${this.baseUrl}${categorySlug}/${productSlug}`);
   }
 
   public searchProducts(query: string): Observable<Product[]> {
-    return this.client.post<Product[]>(`${this.baseUrl}search`, {query}, {
+    return this.client.post<Product[]>(`${this.baseUrl}search`, { query }, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })

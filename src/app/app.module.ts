@@ -29,7 +29,9 @@ import { CategoriesService } from './services/categories.service';
 import { ProductsService } from './services/products.service';
 import { OrdersService } from './services/orders.service';
 
+// config
 import { AppConfig } from './app.config';
+import config from './app.config.json';
 
 
 export function tokenGetter(): string {
@@ -64,7 +66,7 @@ export function tokenGetter(): string {
       config: {
         tokenGetter,
         // TODO : make it be accessed by config
-        allowedDomains: ['localhost:5001'],
+        allowedDomains: config.allowedDomains,
         disallowedRoutes: []
       }
     }),

@@ -1,0 +1,7 @@
+{
+    "apiEndpoint": "https://localhost:5001/api/v1/",
+    "imagesEndpoint": "https://localhost:5001/MediaFiles/",
+    "allowedDomains": [
+        "localhost:5001"
+    ]
+}
