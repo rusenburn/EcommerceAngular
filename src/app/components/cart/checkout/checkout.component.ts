@@ -21,6 +21,7 @@ export class CheckoutComponent implements OnInit {
   orderData: Order = new Order();
   errors: string[] = []; // for server errors
   step = 0;
+  public isLoading = false;
   constructor(
     private _mini: MiniStoreService,
     private _orders: OrdersService,
@@ -31,6 +32,9 @@ export class CheckoutComponent implements OnInit {
   ngOnInit(): void {
     document.title = 'Checkout | Ecommerce';
     this.cart = this._mini.cart;
+    this._mini.isLoading$.subscribe((isLoading) => {
+      this.isLoading = isLoading;
+    });
     if (this.cartTotalLength > 0) {
       this.InitializeInformationForm();
     }
@@ -72,17 +76,6 @@ export class CheckoutComponent implements OnInit {
             this.stripeTokenHandler(result.token);
           }
         });
-
-      // // other way
-      // this._orders.CreatePaymentIntent(this.cart.items).subscribe(
-      //   {
-      //     next: (result) => this.stripeTokenHandler(result.clientSecret),
-      //     error: (err) => {
-      //       this.errors.push('Something went wrong with Stripe . Please try again');
-      //       console.log(err.error.message);
-      //     }
-      //   }
-      // );
     }
   }
   private async stripeTokenHandler(token: stripe.Token): Promise<any> {
@@ -90,7 +83,6 @@ export class CheckoutComponent implements OnInit {
     this.orderData.orderItems = items;
     this.orderData.stripeToken = token.id;
 
-    // console.log(JSON.stringify(data));
     // not finished yet
     this._orders.createCharge(this.orderData).subscribe({
       next: (response) => {
@@ -165,8 +157,8 @@ export class CheckoutComponent implements OnInit {
     return items;
   }
 
-  public get isLoading(): boolean {
-    return this._mini.isLoading;
-  }
+  // public get isLoading(): boolean {
+  //   return this._mini.isLoading;
+  // }
 
 }

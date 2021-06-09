@@ -54,13 +54,13 @@
         <div class="navbar-item">
           <div class="buttons">
             <a
-              *ngIf="isAuthenticated"
+              *ngIf="(isAuthenticated)"
               routerLink="/account/my-account"
               class="button is-light"
               >My Account</a
             >
             <a
-              *ngIf="!isAuthenticated"
+              *ngIf="!(isAuthenticated)"
               routerLink="/account/login"
               class="button is-light"
               >Log in</a

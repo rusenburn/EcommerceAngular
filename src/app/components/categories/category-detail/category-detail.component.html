@@ -6,7 +6,7 @@
       </h1>
     </div>
     <app-product-box
-      *ngFor="let product of category.products"
+      *ngFor="let product of category?.products"
       [product]="product"
       class="column is-3"
     ></app-product-box>

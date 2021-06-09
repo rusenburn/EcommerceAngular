@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Cart } from '../models/cart.model';
 import { OrderItem } from '../models/orderItem.model';
 
@@ -8,11 +9,19 @@ import { OrderItem } from '../models/orderItem.model';
 export class MiniStoreService {
   private readonly TOKEN_NAME = 'token';
   private readonly CART_NAME = 'cart';
-  public isLoading = false;
+  private _isLoading = new BehaviorSubject<boolean>(false);
+  private _isAuthenticated = new BehaviorSubject<boolean>(false);
   public cart: Cart = { items: [] };
   public token = '';
-  public isAuthenticated = false;
-  constructor() { }
+
+  public get isLoading$(): Observable<boolean> {
+    return this._isLoading.asObservable();
+  }
+  public get isAuthenticated$(): Observable<boolean> {
+    return this._isAuthenticated.asObservable();
+  }
+
+  constructor() {}
 
   // mutations
   public InitializeStore(): void {
@@ -26,15 +35,15 @@ export class MiniStoreService {
       this.checkToken()
     ) {
       this.token = this.getToken();
-      this.isAuthenticated = true;
+      this.setAuthentication(true);
     } else {
       this.token = '';
-      this.isAuthenticated = false;
+      this.setAuthentication(false);
     }
   }
 
   public setIsLoading(status: boolean): void {
-    this.isLoading = status;
+    this._isLoading.next(status);
   }
 
   // CART
@@ -72,13 +81,13 @@ export class MiniStoreService {
   // Token and authentication
   public setToken(token: string): void {
     this.token = token;
-    this.isAuthenticated = true;
+    this.setAuthentication(true);
     this.saveToken();
   }
 
   public removeToken(): void {
     this.token = '';
-    this.isAuthenticated = false;
+    this.setAuthentication(false);
     this.saveToken();
   }
 
@@ -95,5 +104,8 @@ export class MiniStoreService {
 
   public getToken(): string {
     return localStorage.getItem(this.TOKEN_NAME);
+  }
+  private setAuthentication(state: boolean): void {
+    this._isAuthenticated.next(state);
   }
 }
