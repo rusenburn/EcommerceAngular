@@ -15,11 +15,6 @@ import { ProductDetailComponent } from './components/products/product-detail/pro
 import { CategoryDetailComponent } from './components/categories/category-detail/category-detail.component';
 import { ProductBoxComponent } from './components/products/product-box/product-box.component';
 import { SearchComponent } from './components/search/search.component';
-import { CartDetailComponent } from './components/cart/cart-detail/cart-detail.component';
-import { CartItemComponent } from './components/cart/cart-item/cart-item.component';
-
-import { CheckoutComponent } from './components/cart/checkout/checkout.component';
-import { SuccessComponent } from './components/cart/success/success.component';
 import { PageNotFoundComponent } from './components/home/page-not-found/page-not-found.component';
 
 
@@ -46,14 +41,11 @@ export function tokenGetter(): string {
     CategoryDetailComponent,
     ProductBoxComponent,
     SearchComponent,
-    CartDetailComponent,
-    CartItemComponent,
-    CheckoutComponent,
-    SuccessComponent,
     PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
+    SharedModule,
     AppRoutingModule,
     HttpClientModule,
     JwtModule.forRoot({
@@ -64,7 +56,6 @@ export function tokenGetter(): string {
         disallowedRoutes: []
       }
     }),
-    SharedModule,
   ],
   providers: [
     { provide: AppConfig, useValue: new AppConfig() },
