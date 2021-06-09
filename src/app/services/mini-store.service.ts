@@ -19,15 +19,12 @@ export class MiniStoreService {
     if (this.checkCart()) {
       this.cart = this.getCart();
     } else {
-      // localStorage.setItem('cart', JSON.stringify(this.cart));
       this.saveCart();
     }
 
     if (
-      // localStorage.getItem('token')
       this.checkToken()
     ) {
-      // this.token = localStorage.getItem('token');
       this.token = this.getToken();
       this.isAuthenticated = true;
     } else {
@@ -48,7 +45,6 @@ export class MiniStoreService {
     } else {
       this.cart.items.push(item);
     }
-    // localStorage.setItem('cart', JSON.stringify(this.cart));
     this.saveCart();
   }
 
@@ -70,7 +66,6 @@ export class MiniStoreService {
   }
   public clearCart(): void {
     this.cart = { items: [] };
-    // localStorage.setItem('cart', JSON.stringify(this.cart));
     this.saveCart();
   }
 

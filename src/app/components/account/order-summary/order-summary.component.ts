@@ -1,4 +1,3 @@
-import { isNgTemplate } from '@angular/compiler';
 import { Component, Input, OnInit } from '@angular/core';
 import { Order } from 'src/app/models/order.model';
 import { OrderItem } from 'src/app/models/orderItem.model';

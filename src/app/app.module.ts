@@ -4,7 +4,9 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { JwtModule } from '@auth0/angular-jwt';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+// custom modules
+import { SharedModule } from './components/shared.module';
 
 // components
 import { AppComponent } from './app.component';
@@ -15,12 +17,9 @@ import { ProductBoxComponent } from './components/products/product-box/product-b
 import { SearchComponent } from './components/search/search.component';
 import { CartDetailComponent } from './components/cart/cart-detail/cart-detail.component';
 import { CartItemComponent } from './components/cart/cart-item/cart-item.component';
-import { SignupComponent } from './components/account/signup/signup.component';
-import { LoginComponent } from './components/account/login/login.component';
-import { MyaccountComponent } from './components/account/myaccount/myaccount.component';
+
 import { CheckoutComponent } from './components/cart/checkout/checkout.component';
 import { SuccessComponent } from './components/cart/success/success.component';
-import { OrderSummaryComponent } from './components/orders/order-summary/order-summary.component';
 import { PageNotFoundComponent } from './components/home/page-not-found/page-not-found.component';
 
 
@@ -32,6 +31,7 @@ import { OrdersService } from './services/orders.service';
 // config
 import { AppConfig } from './app.config';
 import config from './app.config.json';
+
 
 
 export function tokenGetter(): string {
@@ -48,20 +48,14 @@ export function tokenGetter(): string {
     SearchComponent,
     CartDetailComponent,
     CartItemComponent,
-    SignupComponent,
-    LoginComponent,
-    MyaccountComponent,
     CheckoutComponent,
     SuccessComponent,
-    OrderSummaryComponent,
     PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    ReactiveFormsModule,
-    FormsModule,
     JwtModule.forRoot({
       config: {
         tokenGetter,
@@ -70,12 +64,13 @@ export function tokenGetter(): string {
         disallowedRoutes: []
       }
     }),
+    SharedModule,
   ],
   providers: [
     { provide: AppConfig, useValue: new AppConfig() },
     CategoriesService,
     ProductsService,
-    OrdersService
+    OrdersService,
   ],
   bootstrap: [AppComponent]
 })

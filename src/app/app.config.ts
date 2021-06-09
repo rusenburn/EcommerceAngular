@@ -10,7 +10,7 @@ export class AppConfig {
     constructor() {
         // Note if you change the apiEndpoint here then you must change it in jwtModule
         // ex: https://localhost:5001/api/v1/ => allowed domains are 'localhost:5001'
-        // const data = config as any;
+
         this.apiEndpoint = config.apiEndpoint;
         this.imagesEndpoint = config.imagesEndpoint;
         this.categoriesEndpoint = `${this.apiEndpoint}Categories/`;
